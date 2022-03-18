@@ -14,7 +14,7 @@ APIs used include:\
 Google Places API\
 The Movie Database API\
 SerpApi - Google Search API\
-Google Books API\
+Google Books API
 
 ## Getting Started
 
