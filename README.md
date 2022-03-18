@@ -10,6 +10,12 @@ Smart Todo is an API-based single-page todo app. It was used to practice our HTM
 
 It uses 4 different API's to search and categorize user inputs into preset categories on the page. The user is able to login or register, edit their name, and move items between categories. It stores the user's entries in to a database that can be retrieved afterwards.
 
+APIs used include:
+Google Places API
+The Movie Database API
+SerpApi - Google Search API
+Google Books API
+
 ## Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
@@ -39,8 +45,13 @@ It uses 4 different API's to search and categorize user inputs into preset categ
 
 ## Finished Product
 
+Add and check off items!
 !["Adding and checking off items"](https://github.com/ShahrukhFaqiri/Smart_ToDo_App/blob/master/docs/adding%E2%81%84checking.gif)
+
+Use Dropdown Menus to change catagories
 !["Drop down image"](https://github.com/ShahrukhFaqiri/Smart_ToDo_App/blob/master/docs/dropdown.png)
+
+Log in and out or register a new user. All user data and todo data is persistent and stored in a SQL database
 !["Login and logout"](https://github.com/ShahrukhFaqiri/Smart_ToDo_App/blob/master/docs/login%E2%81%84logout.gif)
 
 =======
