@@ -10,11 +10,11 @@ Smart Todo is an API-based single-page todo app. It was used to practice our HTM
 
 It uses 4 different API's to search and categorize user inputs into preset categories on the page. The user is able to login or register, edit their name, and move items between categories. It stores the user's entries in to a database that can be retrieved afterwards.
 
-APIs used include:
-Google Places API
-The Movie Database API
-SerpApi - Google Search API
-Google Books API
+APIs used include:\
+Google Places API\
+The Movie Database API\
+SerpApi - Google Search API\
+Google Books API\
 
 ## Getting Started
 
