@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/todos.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/background-color.css" type="text/css" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
@@ -17,6 +18,9 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
+  integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 
   <!-- Google Fonts -->
@@ -29,8 +33,7 @@
 
 <body>
   <nav class="navigation">
-    <span class="logo">ToDo App</span>
-
+    <img src="https://cdn.discordapp.com/attachments/951908277229338686/953758679478456330/Smart_ToDo.png">
     <div class="nav-corner">
 
       <% if (!username) { %>
@@ -38,6 +41,10 @@
           <input type="text" name="submit" placeholder="username">
           <div id="login-logout">
             <button id="login" type="submit">login</button>
+        </form>
+
+        <form method="GET" action="/users/register">
+          <button id="register" type="submit">register</button>
         </form>
         <% } else { %>
           <p>User: </p>
@@ -56,7 +63,7 @@
 
   <div>
     <form id="todo-form">
-      <input type="text" name="submit" placeholder="what do you have to do today" />
+      <input type="text" id="submit-box" name="submit" placeholder="What do you have to do today" />
       <button id="todo-add-button" type="submit">Submit Todo</button>
     </form>
   </div>
@@ -66,15 +73,19 @@
 
     <div class="todo-container" id="movies">
       <h2>Movies</h2>
+      <h5>To Watch</h5>
     </div>
     <div class="todo-container" id="restaurants">
       <h2>Restaurants</h2>
+      <h5>To Visit</h5>
     </div>
     <div class="todo-container" id="books">
       <h2>Books</h2>
+      <h5>To Read</h5>
     </div>
     <div class="todo-container" id="products">
       <h2>Products</h2>
+      <h5>To Buy</h5>
     </div>
 
   </main>

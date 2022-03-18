@@ -49,11 +49,11 @@ module.exports = (db) => {
     const restaurants = request(queries.restaurant).then((result) => {
       const parsedResult = JSON.parse(result).results;
       let weight = 0;
-
       if (parsedResult.length !== 0) {
         for (let i = 0; i < parsedResult.length; i++) {
-          if (cleanString(input) === cleanString(parsedResult[i].name)) {
+          if (cleanString(parsedResult[i].name).includes(cleanString(input))) {
             weight++;
+            console.log(parsedResult[i].name);
           };
         };
       };
@@ -63,6 +63,7 @@ module.exports = (db) => {
     const googleSearch = request(queries.product).then((result) => {
       const parsedResult = JSON.parse(result).organic_results;
       const searchDomains = [];
+      console.log(parsedResult);
 
       for (let i = 0; i < parsedResult.length; i++) {
         const domain = parsedResult[i].link.replace(/.+\/\/|www.|\..+/g, "");
@@ -75,23 +76,21 @@ module.exports = (db) => {
     Promise.all([movies, books, restaurants, googleSearch]).then((result) => {
       const searchResults = result[3];
       const searchHits = catagorizeSearchResults(searchResults);
-      console.log('Web Search Hits', searchHits);
 
       const movieScore = result[0] + searchHits.movies;
       const bookScore = result[1] + searchHits.books;
       const restaurantScore = result[2] + searchHits.restaurants;
       const productScore = searchHits.products;
-      let category = "";
+      let category = "Products";
 
       const scores = [movieScore, bookScore, restaurantScore, productScore];
       console.log(`Scores, Movies ${scores[0]}, Books ${scores[1]}, Restaurants ${scores[2]}, Products ${scores[3]}`);
 
-      for (let i = 0; i < scores.length; i++) {
-        let biggestScore = 0;
+      let biggestScore = 0;
 
+      for (let i = 0; i < scores.length; i++) {
         if (scores[i] > biggestScore) {
           biggestScore = scores[i];
-
           switch (i) {
             case 0:
               category = "Movies";
@@ -105,12 +104,8 @@ module.exports = (db) => {
             case 3:
               category = "Products";
               break;
-            default:
-              break;
           };
-        } else {
-          category = 'Products';
-        };
+        }
       };
 
       return addIntoDb(req.session.userId, input, category).then((data) => {
@@ -158,7 +153,7 @@ const initializeQueries = (input) => {
   const encodedInput = encodeURIComponent(input);
   const movieQuery = process.env.MOVIE_API + `${encodedInput}`;
   const bookQuery = process.env.BOOK_API + `${encodedInput}%22&langRestrict=en`;
-  const restaurantQuery = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.205,-122.911&radius=20000&type=restaurant&keyword=${input}${process.env.RESTAURANT_API}`;
+  const restaurantQuery = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.3,-123.1&radius=100000&type=restaurant&keyword=${input}${process.env.RESTAURANT_API}`;
   const productQuery = `https://serpapi.com/search.json?engine=google&q=${encodedInput}&api_key=${process.env.PRODUCT_API}`;
 
   return {
@@ -172,6 +167,7 @@ const initializeQueries = (input) => {
 const cleanString = function (string) {
   return string
     .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+    .replace(/'/g, "")
     .replace(/\s+/g, " ")
     .toLowerCase();
 };
